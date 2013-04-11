@@ -16,18 +16,18 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 set(TOOL_LIBJPEG_SOURCE jpegsrc.v6b.tar.gz)
 set(TOOL_LIBJPEG_DIR jpeg-6b/)
-set(CONFIG_ADD_OPTIONS "--enable-static;--enable-shared")
+set(CONFIG_ADD_OPTIONS "--prefix;${CMAKE_BINARY_DIR};--enable-static;--enable-shared")
 	if(DEFINED CMAKE_TOOLCHAIN_FILE)
 		add_custom_command(
 			OUTPUT BUILD_LIBJPEG
-			COMMAND wget -qO- http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/${TOOL_LIBJPEG_SOURCE} | tar -zxvf - && cd ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR} && cp ${CMAKE_CURRENT_SOURCE_DIR}/libtool-2.4.2-config/* .  && ${target_platform_preconfigure_options} ./configure --host=${target_platform} ${CONFIG_ADD_OPTIONS} && make -j2 && mkdir -p ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} && cp ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/.libs/libjpeg.so ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/libjpeg* ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+			COMMAND wget -qO- http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/${TOOL_LIBJPEG_SOURCE} | tar -zxvf - && cd ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR} && cp ${CMAKE_CURRENT_SOURCE_DIR}/libtool-2.4.2-config/* .  && ${target_platform_preconfigure_options} ./configure --host=${target_platform} ${CONFIG_ADD_OPTIONS} && make -j2 && mkdir -p ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} ${CMAKE_BINARY_DIR}/man/man1 ${CMAKE_BINARY_DIR}/include && make install #&& mkdir -p ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} && cp ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/.libs/libjpeg.so ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/libjpeg* ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 			COMMENT "Build libjpeg"
 		)
 	else(DEFINED CMAKE_TOOLCHAIN_FILE)
 		add_custom_command(
 			OUTPUT BUILD_LIBJPEG
-			COMMAND wget -qO- http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/${TOOL_LIBJPEG_SOURCE} | tar -zxvf - && cd ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR} && cp ${CMAKE_CURRENT_SOURCE_DIR}/libtool-2.4.2-config/* . && ./configure ${CONFIG_ADD_OPTIONS} && make -j2 && mkdir -p ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} && cp ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/.libs/libjpeg.so ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/libjpeg* ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+			COMMAND wget -qO- http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/${TOOL_LIBJPEG_SOURCE} | tar -zxvf - && cd ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR} && cp ${CMAKE_CURRENT_SOURCE_DIR}/libtool-2.4.2-config/* . && ./configure ${CONFIG_ADD_OPTIONS} && make -j2 && mkdir -p ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} ${CMAKE_BINARY_DIR}/man/man1 ${CMAKE_BINARY_DIR}/include && make install #&& mkdir -p ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} && cp ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/.libs/libjpeg.so ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/libjpeg* ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 			COMMENT "Build libjpeg" 
 		)
