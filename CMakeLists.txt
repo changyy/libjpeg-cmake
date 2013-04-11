@@ -20,14 +20,14 @@ set(CONFIG_ADD_OPTIONS "--enable-static;--enable-shared")
 	if(DEFINED CMAKE_TOOLCHAIN_FILE)
 		add_custom_command(
 			OUTPUT BUILD_LIBJPEG
-			COMMAND wget -qO- http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/${TOOL_LIBJPEG_SOURCE} | tar -zxvf - && cd ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR} && ${target_platform_preconfigure_options} ./configure --host=${target_platform} --without-freetype --without-fontconfig ${CONFIG_ADD_OPTIONS} && make -j2 && mkdir -p ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} && cp ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/.libs/libjpeg.so ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/libjpeg* ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+			COMMAND wget -qO- http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/${TOOL_LIBJPEG_SOURCE} | tar -zxvf - && cd ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR} && cp ${CMAKE_CURRENT_SOURCE_DIR}/libtool-2.4.2-config/* .  && ${target_platform_preconfigure_options} ./configure --host=${target_platform} ${CONFIG_ADD_OPTIONS} && make -j2 && mkdir -p ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} && cp ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/.libs/libjpeg.so ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/libjpeg* ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 			COMMENT "Build libjpeg"
 		)
 	else(DEFINED CMAKE_TOOLCHAIN_FILE)
 		add_custom_command(
 			OUTPUT BUILD_LIBJPEG
-			COMMAND wget -qO- http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/${TOOL_LIBJPEG_SOURCE} | tar -zxvf - && cd ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR} && linux32 ./configure ${CONFIG_ADD_OPTIONS} && make -j2 && mkdir -p ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} && cp ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/.libs/libjpeg.so ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/libjpeg* ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+			COMMAND wget -qO- http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/${TOOL_LIBJPEG_SOURCE} | tar -zxvf - && cd ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR} && cp ${CMAKE_CURRENT_SOURCE_DIR}/libtool-2.4.2-config/* . && ./configure ${CONFIG_ADD_OPTIONS} && make -j2 && mkdir -p ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} && cp ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/.libs/libjpeg.so ${CMAKE_BINARY_DIR}/${TOOL_LIBJPEG_DIR}/libjpeg* ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 			COMMENT "Build libjpeg" 
 		)
